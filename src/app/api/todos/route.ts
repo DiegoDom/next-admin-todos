@@ -47,3 +47,21 @@ export async function POST(request: Request) {
     );
   }
 }
+
+export async function DELETE() {
+  try {
+    await prisma.todo.deleteMany({ where: { complete: true } });
+
+    return NextResponse.json({
+      status: "success",
+    });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        status: "failed",
+        error,
+      },
+      { status: 400 }
+    );
+  }
+}
